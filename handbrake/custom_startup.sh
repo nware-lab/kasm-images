@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 set -ex
-START_COMMAND="/usr/share/discord/Discord"
-PGREP="Discord"
+START_COMMAND="/usr/bin/handbrake-gtk"
+PGREP="Handbrake"
 export MAXIMIZE="true"
-export MAXIMIZE_NAME="Discord"
+export MAXIMIZE_NAME="Handbrake"
 MAXIMIZE_SCRIPT=$STARTUPDIR/maximize_window.sh
-DEFAULT_ARGS="--no-sandbox"
+#DEFAULT_ARGS="--no-sandbox"
 ARGS=${APP_ARGS:-$DEFAULT_ARGS}
 
 options=$(getopt -o gau: -l go,assign,url: -n "$0" -- "$@") || exit
 eval set -- "$options"
 
-while [[ $1 != -- ]]; do
-    case $1 in
-        -g|--go) GO='true'; shift 1;;
-        -a|--assign) ASSIGN='true'; shift 1;;
-        -u|--url) OPT_URL=$2; shift 2;;
-        *) echo "bad option: $1" >&2; exit 1;;
-    esac
-done
+# while [[ $1 != -- ]]; do
+#     case $1 in
+#         -g|--go) GO='true'; shift 1;;
+#         -a|--assign) ASSIGN='true'; shift 1;;
+#         -u|--url) OPT_URL=$2; shift 2;;
+#         *) echo "bad option: $1" >&2; exit 1;;
+#     esac
+# done
 shift
 
 # Process non-option arguments.
@@ -53,32 +53,37 @@ kasm_startup() {
     elif [ -z "$URL" ] ; then
         URL=$LAUNCH_URL
     fi
+    bash ${MAXIMIZE_SCRIPT} &
+    $START_COMMAND $ARGS $URL &
+    set -e
 
-    if [ -z "$DISABLE_CUSTOM_STARTUP" ] ||  [ -n "$FORCE" ] ; then
+    # if [ -z "$DISABLE_CUSTOM_STARTUP" ] ||  [ -n "$FORCE" ] ; then
 
-        echo "Entering process startup loop"
-        set +x
-        while true
-        do
-            if ! pgrep -x $PGREP > /dev/null
-            then
-                /usr/bin/filter_ready
-                /usr/bin/desktop_ready
-                set +e
-                bash ${MAXIMIZE_SCRIPT} &
-                $START_COMMAND $ARGS $URL &
-                set -e
-            fi
-            sleep 1
-        done
-        set -x
+    #     echo "Entering process startup loop"
+    #     set +x
+    #     while true
+    #     do
+    #         if ! pgrep -x $PGREP > /dev/null
+    #         then
+    #             /usr/bin/filter_ready
+    #             /usr/bin/desktop_ready
+    #             set +e
+    #             bash ${MAXIMIZE_SCRIPT} &
+    #             $START_COMMAND $ARGS $URL &
+    #             set -e
+    #         fi
+    #         sleep 1
+    #     done
+    #     set -x
     
-    fi
+    # fi
 
 } 
 
 if [ -n "$GO" ] || [ -n "$ASSIGN" ] ; then
-    kasm_exec
+   kasm_exec
+   echo exec
 else
     kasm_startup
+    echo startup
 fi
