@@ -11,7 +11,7 @@ WORKDIR $HOME
 ######### Customize Container Here ###########
 
 
-
+RUN apt-get update
 RUN apt-get -y install thunar libfuse2
 
 RUN curl -L -o /ferdium.AppImage "https://github.com/ferdium/ferdium-app/releases/download/v7.1.1/Ferdium-linux-Portable-7.1.1-x86_64.AppImage"
