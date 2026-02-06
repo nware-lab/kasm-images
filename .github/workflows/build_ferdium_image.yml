@@ -27,7 +27,7 @@ jobs:
           context: ./ferdium
           file: ./ferdium/Dockerfile
           push: true
-          tags: nwarelab/ferdium:1.18.0
+          tags: nwarelab/kasm-ferdium:1.18.0
         if: github.ref_name == 'main'
 
 
@@ -38,5 +38,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: nwarelab/ferdium:${{github.ref_name}}
+          tags: nwarelab/kasm-ferdium:${{github.ref_name}}
         if: github.ref_name != 'main'

@@ -27,7 +27,7 @@ jobs:
           context: ./handbrake
           file: ./handbrake/Dockerfile
           push: true
-          tags: nwarelab/handbrake:1.18.0
+          tags: nwarelab/kasm-handbrake:1.18.0
         if: github.ref_name == 'main'
 
 
@@ -38,5 +38,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: nwarelab/handbrake:${{github.ref_name}}
+          tags: nwarelab/kasm-handbrake:${{github.ref_name}}
         if: github.ref_name != 'main'
