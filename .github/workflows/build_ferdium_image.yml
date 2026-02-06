@@ -1,4 +1,4 @@
-name: Build docker image
+name: Build ferdium docker image
 on:
   push:
 

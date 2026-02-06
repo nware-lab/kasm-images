@@ -1,4 +1,4 @@
-name: Build docker image
+name: Build handbrake docker image
 on:
   push:
 
