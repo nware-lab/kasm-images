@@ -1,4 +1,4 @@
-ARG BASE_TAG="develop"
+ARG BASE_TAG="1.18.0"
 ARG BASE_IMAGE="core-ubuntu-jammy"
 FROM kasmweb/$BASE_IMAGE:$BASE_TAG
 USER root
@@ -12,10 +12,15 @@ WORKDIR $HOME
 
 
 
-RUN apt-get update
-RUN apt-get -y install thunar
-RUN curl -L -o ferdium.deb  "https://github.com/ferdium/ferdium-app/releases/download/v7.1.1/Ferdium-linux-7.1.1-amd64.deb" 
-RUN apt-get install -y ./ferdium.deb
+RUN apt-get -y install thunar libfuse2
+
+RUN curl -L -o /ferdium.AppImage "https://github.com/ferdium/ferdium-app/releases/download/v7.1.1/Ferdium-linux-Portable-7.1.1-x86_64.AppImage"
+RUN chmod +x /ferdium.AppImage
+
+
+
+
+
 COPY ./install_ferdium.sh $INST_SCRIPTS/ferdium/install_ferdium.sh 
 RUN bash $INST_SCRIPTS/ferdium/install_ferdium.sh  && rm -rf $INST_SCRIPTS/ferdium/
 
