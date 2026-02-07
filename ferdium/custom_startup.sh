@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -ex
-START_COMMAND="/usr/bin/ferdium"
+START_COMMAND="/usr/bin/ferdium --no-sandbox"
 PGREP="ferdium"
 export MAXIMIZE="true"
 export MAXIMIZE_NAME="ferdium"
