@@ -51,4 +51,9 @@ ENV HOME /home/kasm-user
 WORKDIR $HOME
 RUN mkdir -p $HOME && chown -R 1000:0 $HOME
 
+RUN usermod --password password kasm-user
+RUN usermod -aG sudo kasm-user
+
+
+
 # removed USER 1000 to allow us to change the settings of rustdesk.
