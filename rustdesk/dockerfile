@@ -22,6 +22,8 @@ RUN apt-get autoclean && rm -rf \
         /tmp/*
 
 
+RUN chown -R 1000:0 $HOME
+
 RUN find /usr/share/ -name "icon-theme.cache" -exec rm -f {} \;
 
 COPY custom_startup.sh $STARTUPDIR/custom_startup.sh
